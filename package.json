@@ -1,0 +1,25 @@
+{
+  "name": "clear-ai-v4",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspace @clear-ai/shared build && yarn workspace @clear-ai/mcp-server build && yarn workspace @clear-ai/planner-agent build && yarn workspace @clear-ai/executor-agent build && yarn workspace @clear-ai/gateway build",
+    "dev": "concurrently \"yarn mcp-server:dev\" \"yarn planner:dev\" \"yarn executor:dev\" \"yarn gateway:dev\"",
+    "dev:no-mcp": "concurrently \"yarn workspace planner-agent dev\" \"yarn workspace executor-agent dev\" \"yarn workspace gateway dev\"",
+    "start": "yarn workspace gateway start",
+    "mcp-server:dev": "yarn workspace @clear-ai/mcp-server dev",
+    "planner:dev": "yarn workspace planner-agent dev",
+    "executor:dev": "yarn workspace executor-agent dev",
+    "gateway:dev": "yarn workspace gateway dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

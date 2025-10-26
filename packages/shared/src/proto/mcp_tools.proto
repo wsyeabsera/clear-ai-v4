@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package mcp;
+
+// ToolService provides methods to discover and interact with tools
+service ToolService {
+  // ListTools returns all available tools from the MCP server
+  rpc ListTools(ListToolsRequest) returns (ListToolsResponse);
+  
+  // CallTool executes a specific tool with given parameters
+  rpc CallTool(CallToolRequest) returns (CallToolResponse);
+}
+
+// Request to list all available tools
+message ListToolsRequest {
+  // Optional filter by category
+  string category = 1;
+}
+
+// Response containing list of tools
+message ListToolsResponse {
+  repeated Tool tools = 1;
+}
+
+// Individual tool definition
+message Tool {
+  string name = 1;
+  string description = 2;
+  string category = 3;
+  ToolSchema inputSchema = 4;
+  ToolSchema outputSchema = 5;
+}
+
+// Schema definition for tool parameters
+message ToolSchema {
+  string type = 1;
+  map<string, string> properties = 2;
+  repeated string required = 3;
+}
+
+// Request to call a specific tool
+message CallToolRequest {
+  string toolName = 1;
+  map<string, string> parameters = 2;
+}
+
+// Response from tool execution
+message CallToolResponse {
+  bool success = 1;
+  string message = 2;
+  string output = 3;
+}
