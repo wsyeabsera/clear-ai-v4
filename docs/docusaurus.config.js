@@ -10,7 +10,6 @@ const config = {
   tagline: 'Multi-Package GraphQL Backend with LLM-Powered Tool Chaining',
   url: 'https://yab.github.io',
   baseUrl: '/clear-ai-v4/',
-  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 

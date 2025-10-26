@@ -15,12 +15,23 @@ module.exports = {
     {
       type: 'category',
       label: 'Getting Started',
-      items: ['intro', 'getting-started/installation', 'getting-started/quick-start', 'getting-started/architecture-overview', 'getting-started/environment-setup'],
+      items: [
+        'intro',
+        'getting-started/installation',
+        'getting-started/quick-start',
+        'getting-started/architecture-overview',
+        'getting-started/environment-setup'
+      ],
     },
     {
       type: 'category',
       label: 'Core Concepts',
-      items: ['core-concepts/tool-chaining', 'core-concepts/llm-integration', 'core-concepts/mcp-server', 'core-concepts/agents'],
+      items: [
+        'core-concepts/tool-chaining',
+        'core-concepts/llm-integration',
+        'core-concepts/mcp-server',
+        'core-concepts/agents'
+      ],
     },
     {
       type: 'category',
