@@ -1,0 +1,53 @@
+/**
+ * Custom styles for Clear AI V4 documentation
+ */
+
+:root {
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Code blocks */
+.markdown > pre {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+.markdown table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown table tr {
+  background-color: var(--ifm-table-cell-background);
+  border-top: 1px solid var(--ifm-table-border-color);
+}
+
+.markdown table tr:nth-child(2n) {
+  background-color: var(--ifm-table-stripe-background);
+}
+
+.markdown table th,
+.markdown table td {
+  border: 1px solid var(--ifm-table-border-color);
+  padding: 0.75rem;
+}
+
+.markdown table th {
+  background-color: var(--ifm-table-head-background);
+  color: var(--ifm-table-head-color);
+  font-weight: bold;
+}
+

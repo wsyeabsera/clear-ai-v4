@@ -1,6 +1,6 @@
 import { Resolvers, Plan } from '../types/resolvers';
 import { Plan as PlanModel } from '../models/Plan';
-import { ToolRegistry } from '@clear-ai/shared';
+import { ToolRegistry, generateRequestId, generatePlanId, PlanWithRequestModel } from '@clear-ai/shared';
 import { PlanningGraph } from '../workflows/PlanningGraph';
 
 const convertDocToObject = (doc: any) => {
@@ -89,6 +89,51 @@ export const resolvers: Resolvers = {
       workflowPlans.set(planId, planWithTools);
 
       return planWithTools;
+    },
+    createPlanWithRequestId: async (_: any, args: { query: string }) => {
+      const registry = ToolRegistry.getInstance();
+      await registry.ensureInitialized();
+
+      const planningGraph = new PlanningGraph({ toolRegistry: registry });
+      const result = await planningGraph.invoke({ query: args.query });
+
+      const requestId = generateRequestId();
+      const planId = generatePlanId();
+
+      // Analyze dependencies
+      const { toolExecutions, toolOrder } = planningGraph.analyzeDependencies(
+        result.selectedTools
+      );
+
+      const planWithRequest = await PlanWithRequestModel.create({
+        requestId,
+        planId,
+        query: result.query,
+        plan: result.plan || '',
+        selectedTools: toolExecutions,
+        toolOrder,
+        executionState: 'pending',
+        validationResult: result.validationResult,
+      });
+
+      return {
+        id: planWithRequest._id.toString(),
+        requestId: planWithRequest.requestId,
+        planId: planWithRequest.planId,
+        query: planWithRequest.query || '',
+        plan: planWithRequest.plan || '',
+        selectedTools: planWithRequest.selectedTools.map((t: any) => ({
+          toolName: t.toolName,
+          parameters: JSON.stringify(t.parameters),
+          dependsOn: t.dependsOn,
+          outputMapping: t.outputMapping ? JSON.stringify(t.outputMapping) : null,
+        })),
+        toolOrder: planWithRequest.toolOrder,
+        executionState: planWithRequest.executionState,
+        validationResult: JSON.stringify(planWithRequest.validationResult),
+        createdAt: planWithRequest.createdAt.toISOString(),
+        updatedAt: planWithRequest.updatedAt.toISOString(),
+      };
     },
   },
 };

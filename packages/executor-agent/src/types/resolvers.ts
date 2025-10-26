@@ -18,6 +18,20 @@ export type ExecutionWithResults = {
   updatedAt: string;
 };
 
+export type ExecutionWithChaining = {
+  id: string;
+  requestId: string;
+  planId: string;
+  totalExecutions: number;
+  successful: number;
+  failed: number;
+  results: string;
+  outputs: string;
+  errors: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Resolvers {
   Query: {
     getExecution: (parent: any, args: { id: string }) => Promise<Execution | null>;
@@ -28,6 +42,7 @@ export interface Resolvers {
     updateExecution: (parent: any, args: { id: string; input?: string; output?: string }) => Promise<Execution>;
     deleteExecution: (parent: any, args: { id: string }) => Promise<boolean>;
     executeWithWorkflow: (parent: any, args: { plan: string; tools: string }) => Promise<ExecutionWithResults>;
+    executeByRequestId: (parent: any, args: { requestId: string }) => Promise<ExecutionWithChaining>;
   };
   [key: string]: any;
 }

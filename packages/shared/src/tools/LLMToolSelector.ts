@@ -20,7 +20,7 @@ export class LLMToolSelector {
   ): Promise<ToolDefinition[]> {
     const prompt = this.buildToolSelectionPrompt(query, availableTools);
     const selectedToolNames = await this.llmClient.selectTools(prompt, availableTools);
-    
+
     return availableTools.filter((tool) => selectedToolNames.includes(tool.name));
   }
 
@@ -34,18 +34,18 @@ export class LLMToolSelector {
   private formatTool(tool: ToolDefinition): string {
     let formatted = `Tool: ${tool.name}\n`;
     formatted += `Description: ${tool.description}\n`;
-    
+
     if (tool.category) {
       formatted += `Category: ${tool.category}\n`;
     }
-    
+
     if (tool.parameters && Object.keys(tool.parameters).length > 0) {
       formatted += `Parameters:\n`;
       Object.entries(tool.parameters).forEach(([key, param]) => {
         formatted += `  - ${key}: ${JSON.stringify(param)}\n`;
       });
     }
-    
+
     return formatted;
   }
 
@@ -54,7 +54,7 @@ export class LLMToolSelector {
     availableTools: ToolDefinition[]
   ): string {
     const toolsList = this.formatToolsForLLM(availableTools);
-    
+
     return `You are a tool selection assistant. Based on the following user query, select the most appropriate tools from the available list.
 
 User Query: "${query}"
@@ -89,7 +89,7 @@ Return your response as a JSON array of tool names only.`;
     keywords: string[]
   ): ToolDefinition[] {
     const lowerKeywords = keywords.map((kw) => kw.toLowerCase());
-    
+
     return tools.filter((tool) => {
       const searchText = `${tool.name} ${tool.description} ${tool.category || ''}`.toLowerCase();
       return lowerKeywords.some((keyword) => searchText.includes(keyword));

@@ -160,9 +160,9 @@ async function startServer() {
   server.addService(toolService.service, {
     ListTools: (call: any, callback: any) => {
       const request = call.request;
-      
+
       let tools = allTools;
-      
+
       // Filter by category if provided
       if (request.category) {
         tools = tools.filter((tool) => tool.category === request.category);

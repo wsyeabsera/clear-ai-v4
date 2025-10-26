@@ -20,10 +20,25 @@ interface ListToolsResponse {
   tools: Tool[];
 }
 
+interface CallToolRequest {
+  toolName: string;
+  parameters: Record<string, any>;
+}
+
+interface CallToolResponse {
+  success: boolean;
+  message: string;
+  output: string;
+}
+
 interface ToolServiceClient {
   listTools(
     request: ListToolsRequest,
     callback: (error: grpc.ServiceError | null, response: ListToolsResponse) => void
+  ): void;
+  callTool(
+    request: CallToolRequest,
+    callback: (error: grpc.ServiceError | null, response: CallToolResponse) => void
   ): void;
 }
 
@@ -38,10 +53,10 @@ export class MCPClient {
 
   private createClient(): ToolServiceClient {
     const fs = require('fs');
-    
+
     // Try multiple possible paths for proto file
     const possiblePaths = [
-      path.resolve(__dirname, '../proto/mcp_tools.proto'), // dist/tools -> dist/proto  
+      path.resolve(__dirname, '../proto/mcp_tools.proto'), // dist/tools -> dist/proto
       path.resolve(__dirname, '../../proto/mcp_tools.proto'), // dist/tools -> dist/proto (alternative)
       path.resolve(__dirname, '../../../src/proto/mcp_tools.proto'), // dist/tools -> src/proto
       path.resolve(process.cwd(), 'packages/shared/src/proto/mcp_tools.proto'), // absolute src
@@ -50,10 +65,10 @@ export class MCPClient {
       path.resolve(__dirname, '../../../../node_modules/@clear-ai/shared/dist/proto/mcp_tools.proto'), // from node_modules in packages
       path.resolve(process.cwd(), 'node_modules/@clear-ai/shared/dist/proto/mcp_tools.proto'), // from root node_modules
     ];
-    
+
     console.log('Searching for proto file from:', __dirname);
     console.log('Current working directory:', process.cwd());
-    
+
     let PROTO_PATH = '';
     for (const protoPath of possiblePaths) {
       try {
@@ -68,7 +83,7 @@ export class MCPClient {
         // Continue to next path
       }
     }
-    
+
     if (!PROTO_PATH) {
       throw new Error('Could not find proto file. Tried paths: ' + possiblePaths.join(', '));
     }
@@ -148,6 +163,28 @@ export class MCPClient {
 
   getServerAddress(): string {
     return this.serverAddress;
+  }
+
+  async callTool(toolName: string, parameters: Record<string, any>): Promise<{
+    success: boolean;
+    message: string;
+    output: string;
+  }> {
+    return new Promise((resolve, reject) => {
+      const request = {
+        toolName,
+        parameters,
+      };
+
+      this.client.callTool(request, (error: grpc.ServiceError | null, response: any) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve(response);
+      });
+    });
   }
 
   close(): void {

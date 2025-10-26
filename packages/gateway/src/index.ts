@@ -34,11 +34,11 @@ async function startGateway() {
   console.log('🚀 Starting Gateway...');
   console.log(`📡 Checking planner service at ${PLANNER_SERVICE_URL}/graphql`);
   console.log(`📡 Checking executor service at ${EXECUTOR_SERVICE_URL}/graphql`);
-  
+
   // Wait for services to be ready
   const plannerReady = await waitForService(`${PLANNER_SERVICE_URL}/graphql`, 'Planner Agent');
   const executorReady = await waitForService(`${EXECUTOR_SERVICE_URL}/graphql`, 'Executor Agent');
-  
+
   if (!plannerReady || !executorReady) {
     console.error('❌ Services not ready. Please start planner-agent and executor-agent first.');
     process.exit(1);

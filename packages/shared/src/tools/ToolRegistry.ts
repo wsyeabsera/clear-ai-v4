@@ -27,7 +27,7 @@ export class ToolRegistry {
     try {
       this.mcpClient = new MCPClient();
       const tools = await this.mcpClient.listTools();
-      
+
       tools.forEach((tool) => {
         this.register(tool);
       });

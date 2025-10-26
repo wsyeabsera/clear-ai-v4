@@ -13,7 +13,9 @@
     "mcp-server:dev": "yarn workspace @clear-ai/mcp-server dev",
     "planner:dev": "yarn workspace planner-agent dev",
     "executor:dev": "yarn workspace executor-agent dev",
-    "gateway:dev": "yarn workspace gateway dev"
+    "gateway:dev": "yarn workspace gateway dev",
+    "docs:dev": "cd docs && npm run dev",
+    "docs:build": "cd docs && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
@@ -21,5 +23,10 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "groq-sdk": "^0.34.0",
+    "openai": "^6.7.0"
   }
 }

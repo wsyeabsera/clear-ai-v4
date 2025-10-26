@@ -1,6 +1,6 @@
 import { Resolvers, Execution } from '../types/resolvers';
 import { Execution as ExecutionModel } from '../models/Execution';
-import { ToolRegistry } from '@clear-ai/shared';
+import { ToolRegistry, PlanWithRequestModel } from '@clear-ai/shared';
 import { ExecutionGraph } from '../workflows/ExecutionGraph';
 
 const convertDocToObject = (doc: any) => {
@@ -75,6 +75,54 @@ export const resolvers: Resolvers = {
       workflowExecutions.set(executionId, executionWithResults);
 
       return executionWithResults;
+    },
+    executeByRequestId: async (_: any, args: { requestId: string }) => {
+      const registry = ToolRegistry.getInstance();
+      await registry.ensureInitialized();
+
+      // Fetch plan from MongoDB
+      const plan = await PlanWithRequestModel.findOne({ requestId: args.requestId });
+
+      if (!plan) {
+        throw new Error(`Plan not found for requestId: ${args.requestId}`);
+      }
+
+      // Update state to in-progress
+      plan.executionState = 'in-progress';
+      await plan.save();
+
+      // Execute with chaining
+      const executionGraph = new ExecutionGraph({ toolRegistry: registry });
+      const result = await executionGraph.invoke({
+        plan: plan.plan || '',
+        tools: plan.selectedTools,
+        toolOrder: plan.toolOrder,
+      });
+
+      // Update plan with results
+      plan.executionState = result.errors.length > 0 ? 'failed' : 'completed';
+      plan.executionResults = result.previousOutputs;
+      await plan.save();
+
+      // Extract counts from aggregated results
+      const aggregated = result.results[0];
+      const totalExecutions = aggregated?.totalExecutions || 0;
+      const successful = aggregated?.successful || 0;
+      const failed = aggregated?.failed || 0;
+
+      return {
+        id: plan._id.toString(),
+        requestId: plan.requestId,
+        planId: plan.planId,
+        totalExecutions,
+        successful,
+        failed,
+        results: JSON.stringify(result.results),
+        outputs: JSON.stringify(result.previousOutputs),
+        errors: result.errors,
+        createdAt: plan.createdAt.toISOString(),
+        updatedAt: plan.updatedAt.toISOString(),
+      };
     },
   },
 };

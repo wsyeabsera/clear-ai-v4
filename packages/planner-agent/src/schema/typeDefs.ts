@@ -32,10 +32,32 @@ export const typeDefs = parse(`
     getAvailableTools: [Tool!]!
   }
 
+  type ToolExecution {
+    toolName: String!
+    parameters: String!
+    dependsOn: String
+    outputMapping: String
+  }
+
+  type PlanWithRequest {
+    id: ID!
+    requestId: String!
+    planId: String!
+    query: String!
+    plan: String!
+    selectedTools: [ToolExecution!]!
+    toolOrder: [String!]!
+    executionState: String!
+    validationResult: String
+    createdAt: String!
+    updatedAt: String!
+  }
+
   type Mutation {
     createPlan(input: String!, output: String!): Plan!
     updatePlan(id: ID!, input: String, output: String): Plan!
     deletePlan(id: ID!): Boolean!
     createPlanWithWorkflow(query: String!): PlanWithTools!
+    createPlanWithRequestId(query: String!): PlanWithRequest!
   }
 `);
