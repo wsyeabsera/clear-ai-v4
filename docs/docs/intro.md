@@ -110,5 +110,5 @@ In this documentation, you'll learn how to:
 
 ## Next Steps
 
-Ready to get started? Head over to the [Installation Guide](getting-started/installation) to set up your environment.
+Ready to get started? Head over to the [Installation Guide](./getting-started/installation) to set up your environment.
 

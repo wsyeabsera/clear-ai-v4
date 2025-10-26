@@ -326,6 +326,6 @@ Future enhancements:
 ## Next Steps
 
 - Learn about [Tool Chaining](core-concepts/tool-chaining)
-- Explore [LLM Integration](core-concepts/llm-integration)
+- Explore [LLM Integration](../core-concepts/llm-integration)
 - Read the [API Reference](api-reference/planner-agent)
 

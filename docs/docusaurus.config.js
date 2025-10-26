@@ -28,6 +28,7 @@ const config = {
           editUrl: 'https://github.com/yab/clear-ai-v4/tree/main/',
           path: './docs',
         },
+        pages: false,
         blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -67,15 +68,15 @@ const config = {
             items: [
               {
                 label: 'Getting Started',
-                to: '/docs/intro',
+                to: '/intro',
               },
               {
                 label: 'Architecture',
-                to: '/docs/core-concepts/architecture',
+                to: '/getting-started/architecture-overview',
               },
               {
                 label: 'API Reference',
-                to: '/docs/api-reference/planner-agent',
+                to: '/api-reference/planner-agent',
               },
             ],
           },

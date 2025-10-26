@@ -242,7 +242,7 @@ server.bindAsync(`0.0.0.0:50051`, grpc.ServerCredentials.createInsecure(), () =>
 
 ## Next Steps
 
-- Learn about [Agents](agents)
-- Explore [Tool Chaining](tool-chaining)
-- Read the [API Reference](api-reference/tools)
+- Learn about [Agents](./agents.md)
+- Explore [Tool Chaining](./tool-chaining.md)
+- Read the [API Reference](../api-reference/tools)
 

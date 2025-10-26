@@ -246,5 +246,5 @@ yarn executor:dev
 
 ## Next Steps
 
-Once everything is running, try the [Quick Start Guide](quick-start) to create your first execution plan.
+Once everything is running, try the [Quick Start Guide](./quick-start.md) to create your first execution plan.
 

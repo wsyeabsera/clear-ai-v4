@@ -475,7 +475,7 @@ Error: Placeholder value detected
 
 ## Next Steps
 
-- Learn about [MCP Server](mcp-server)
-- Explore [Parameter Resolution](advanced/parameter-resolution)
-- Read the [Advanced Topics](advanced)
+- Learn about [MCP Server](./mcp-server.md)
+- Explore [Parameter Resolution](../advanced/parameter-resolution)
+- Read the [Advanced Topics](../advanced)
 

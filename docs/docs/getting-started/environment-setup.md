@@ -375,7 +375,7 @@ Error: Invalid LLM response structure
 
 ## Next Steps
 
-- Learn about [Tool Chaining](core-concepts/tool-chaining)
-- Explore [LLM Integration](core-concepts/llm-integration)
-- Read the [Quick Start Guide](quick-start)
+- Learn about [Tool Chaining](../core-concepts/tool-chaining)
+- Explore [LLM Integration](../core-concepts/llm-integration)
+- Read the [Quick Start Guide](./quick-start.md)
 

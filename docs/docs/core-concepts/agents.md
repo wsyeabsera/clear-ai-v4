@@ -266,7 +266,7 @@ pending → in-progress → completed
 
 ## Next Steps
 
-- Learn about [Tool Chaining](tool-chaining)
+- Learn about [Tool Chaining](tool-chaining.md)
 - Explore [LLM Integration](llm-integration)
-- Read the [Quick Start](getting-started/quick-start)
+- Read the [Quick Start](../getting-started/quick-start)
 

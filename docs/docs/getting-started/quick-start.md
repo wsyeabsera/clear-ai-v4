@@ -4,7 +4,7 @@ Get up and running with your first multi-tool execution in 5 minutes.
 
 ## Prerequisites
 
-- All services running (see [Installation](installation))
+- All services running (see [Installation](./installation.md))
 - Valid API keys configured
 - MongoDB connected
 
@@ -221,7 +221,7 @@ For interactive testing, use the GraphQL Playground:
 
 ## Next Steps
 
-- Learn about [Tool Chaining](tutorials/first-plan)
-- Explore the [API Reference](api-reference/planner-agent)
-- Understand [Parameter Resolution](advanced/parameter-resolution)
+- Learn about [Tool Chaining](../tutorials/first-plan)
+- Explore the [API Reference](../api-reference/planner-agent)
+- Understand [Parameter Resolution](../advanced/parameter-resolution)
 
