@@ -24,8 +24,10 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/clear-ai/clear-ai-v4/tree/main/',
+          editUrl: 'https://github.com/yab/clear-ai-v4/tree/main/',
+          path: './docs',
         },
         blog: false,
         theme: {
